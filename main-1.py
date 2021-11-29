@@ -20,7 +20,7 @@ rtc = RTC_DS3231.RTC()
 
 #Weekday is start at Saturday with x01
 #                     sec\min\hou\wee\day\mon\yea
-rtc.DS3231_SetTime(b'\x50\x47\x05\x03\x29\x11\x21')
+#rtc.DS3231_SetTime(b'\x50\x47\x05\x03\x29\x11\x21')
 #remove comment to set time. Do this only once otherwise time will be set everytime the code is executed.
 
 while True:
