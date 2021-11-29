@@ -6,7 +6,7 @@ class RTC:
     #w = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
     
     #initialisation of RTC object. Several settings are possible but everything is optional. If you meet this standards no parameter's needed.
-    def __init__(self, sda_pin=16, scl_pin=17, port=0, speed=100000, address=0x68, register=0x00):
+    def __init__(self, sda_pin=4, scl_pin=5, port=0, speed=100000, address=0x68, register=0x00):
         self.rtc_address = address      #for using different i2c address
         self.rtc_register = register    #for using different register on device. DON'T change for DS3231
         sda=machine.Pin(sda_pin)        #configure the sda pin
