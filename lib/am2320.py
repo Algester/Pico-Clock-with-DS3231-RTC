@@ -2,7 +2,7 @@ import ustruct
 import time
 
 class AM2320:
-    def __init__(self, i2c=None, address=0x5c):
+    def __init__(self, i2c=None, address=0xB8):
         self.i2c = i2c
         self.address = address
         self.buf = bytearray(8)
