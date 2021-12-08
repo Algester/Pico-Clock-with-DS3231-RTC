@@ -25,6 +25,7 @@ sensor = am2320.AM2320(i2c)
 #remove comment to set time. Do this only once otherwise time will be set everytime the code is executed.
 
 pin = machine.Pin(20, machine.Pin.IN)
+#temperature and humidity needs to be converted from float to non float value (unknown formula yet)
 #temp = sensor.temperature()
 #humi = sensor.humidity()
 
@@ -39,7 +40,7 @@ while True:
         lcd.clear()
         sensor.measure()
         lcd.move_to(0,0)
-        lcd.putstr(f'sensor.temperature()')
+        #lcd.putstr(f'sensor.temperature()')
         lcd.move_to(1,0)
-        lcd.putstr(f'sensor.humidity()')
+        #lcd.putstr(f'sensor.humidity()')
         time.sleep_ms(1000)
