@@ -49,6 +49,8 @@ class RTC:
             if mode == 1:   #mode 1 returns a formated string with time, weekday and date
                 time_string = str(hour) + ":" + str(minute) + ":" + str(second) + "      " + weekday + " " + str(day) + "." + str(month) + "." + str(year)
                 return time_string
+            if mode ==2:
+                return hour, minute, second, weekday, month, day, year                
             #if you need different format, feel free to add
         except:
             return "Error: is the DS3231 not connected?"   #exception occurs in any case of error.
