@@ -30,8 +30,8 @@ pin = machine.Pin(20, machine.Pin.IN)
 #humi = sensor.humidity()
 
 while True:
+    #Display RTC_ReadTime in mode 2 change as needed see lib/RTC_DS3231
     t = rtc.DS3231_ReadTime(2)
-    #read RTC and receive data in Mode 1 (see /my_lib/RTC_DS3231.py)
     lcd.move_to(0,0)
     lcd.putstr(t)
     time.sleep(1)
