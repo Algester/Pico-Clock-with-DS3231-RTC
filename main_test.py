@@ -21,15 +21,15 @@ sensor = am2320.AM2320(i2c)
 #if possible attempt to use GPIO 20-22 buttons to configure time rather than set them on the PC first
 #Weekday is start at Saturday with x01
 #                     sec\min\hou\wee\day\mon\yea
-#rtc.DS3231_SetTime(b'\x50\x40\x16\x04\x07\x12\x21')
+#rtc.DS3231_SetTime(b'\x20\x55\x22\x04\x08\x12\x21')
 #remove comment to set time. Do this only once otherwise time will be set everytime the code is executed.
 
 pin = machine.Pin(20, machine.Pin.IN)
-temp = sensor.temperature()
-humi = sensor.humidity()
+#temp = sensor.temperature()
+#humi = sensor.humidity()
 
 while True:
-    t = rtc.DS3231_ReadTime(1)
+    t = rtc.DS3231_ReadTime(2)
     #read RTC and receive data in Mode 1 (see /my_lib/RTC_DS3231.py)
     lcd.move_to(0,0)
     lcd.putstr(t)
@@ -39,7 +39,7 @@ while True:
         lcd.clear()
         sensor.measure()
         lcd.move_to(0,0)
-        lcd.putstr(temp)
+        lcd.putstr(f'sensor.temperature()')
         lcd.move_to(1,0)
-        lcd.putstr(humi)
-        time.sleep_ms(30)
+        lcd.putstr(f'sensor.humidity()')
+        time.sleep_ms(1000)
