@@ -2,7 +2,7 @@ import machine
 
 #class for getting Realtime from the DS3231 in different modes.
 class RTC:
-    w = ["FRI","SAT","SUN","MON","TUE","WED","THU"] #if you want different names for Weekdays, feel free to add.
+    w = ["SUN","MON","TUE","WED","THU","FRI","SAT"] #if you want different names for Weekdays, feel free to add.
     #mon = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
     #w = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
     
@@ -39,8 +39,8 @@ class RTC:
         try:
             buffer = self.i2c.readfrom_mem(self.rtc_address,self.rtc_register,7)    #read RT from DS3231 and write to the buffer variable. It's a list with 7 entries. Every entry needs to be converted from bcd to bin.
             year = self.bcd2bin(buffer[6]) + 2000           #the year consists of 2 digits. Here 2000 years are added to get format like "2021"
-            #month = self.mon[self.bcd2bin(buffer[5])]      #making Months in the first three letters
-            month = self.bcd2bin(buffer[5])                 #just put the month value in the month variable and convert it., remove comment and comment above if you want numbers
+            #month = self.mon[self.bcd2bin(buffer[5])]       #making Months in the first three letters
+            month = self.bcd2bin(buffer[5])                #just put the month value in the month variable and convert it., remove comment and comment above if you want numbers
             day = self.bcd2bin(buffer[4])                   #same for the day value
             weekday = self.w[self.bcd2bin(buffer[3])]       #weekday will be converted in the weekdays name or shortform like "Sunday" or "SUN"
             #weekday = self.bcd2bin(buffer[3])              #remove comment in this line if you want a number for the weekday and comment the line before.
