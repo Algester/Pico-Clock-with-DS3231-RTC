@@ -3,10 +3,11 @@ import machine
 #class for getting Realtime from the DS3231 in different modes.
 class RTC:
     w = ["FRI","SAT","SUN","MON","TUE","WED","THU"] #if you want different names for Weekdays, feel free to add.
+    #mon = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
     #w = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
     
     #initialisation of RTC object. Several settings are possible but everything is optional. If you meet this standards no parameter's needed.
-    def __init__(self, sda_pin=4, scl_pin=5, port=0, speed=100000, address=0x68, register=0x00):
+    def __init__(self, sda_pin=0, scl_pin=1, port=0, speed=100000, address=0x68, register=0x00):
         self.rtc_address = address      #for using different i2c address
         self.rtc_register = register    #for using different register on device. DON'T change for DS3231
         sda=machine.Pin(sda_pin)        #configure the sda pin
@@ -15,6 +16,7 @@ class RTC:
 
     #function for setting the Time
     def DS3231_SetTime(self, NowTime = b'\x00\x23\x12\x28\x14\x07\x21'):
+        # Weekdays start at Saturday as x01
         # NowTime has to be in format like b'\x00\x23\x12\x28\x14\x07\x21'
         # It is encoded like this           sec min hour week day month year
         # Then it's written to the DS3231
@@ -37,7 +39,8 @@ class RTC:
         try:
             buffer = self.i2c.readfrom_mem(self.rtc_address,self.rtc_register,7)    #read RT from DS3231 and write to the buffer variable. It's a list with 7 entries. Every entry needs to be converted from bcd to bin.
             year = self.bcd2bin(buffer[6]) + 2000           #the year consists of 2 digits. Here 2000 years are added to get format like "2021"
-            month = self.bcd2bin(buffer[5])                 #just put the month value in the month variable and convert it.
+            #month = self.mon[self.bcd2bin(buffer[5])]      #making Months in the first three letters
+            month = self.bcd2bin(buffer[5])                 #just put the month value in the month variable and convert it., remove comment and comment above if you want numbers
             day = self.bcd2bin(buffer[4])                   #same for the day value
             weekday = self.w[self.bcd2bin(buffer[3])]       #weekday will be converted in the weekdays name or shortform like "Sunday" or "SUN"
             #weekday = self.bcd2bin(buffer[3])              #remove comment in this line if you want a number for the weekday and comment the line before.
@@ -47,10 +50,11 @@ class RTC:
             if mode == 0:   #mode 0 returns a list of second, minute, ...
                 return second, minute, hour, weekday, day, month, year
             if mode == 1:   #mode 1 returns a formated string with time, weekday and date
-                time_string = str(hour) + ":" + str(minute) + ":" + str(second) + "      " + weekday + " " + str(day) + "." + str(month) + "." + str(year)
+                time_string = str(hour) + ":" + str(minute) + ":" + str(second) + "        " + weekday + " " + str(day) + "." + str(month) + "." + str(year)
                 return time_string
-            if mode ==2:
-                return hour, minute, second, weekday, month, day, year                
+            if mode == 2:
+                time_string = str(hour) + ":" + str(minute) + ":" + str(second) + "        " + weekday + " " + str(month) + "." + str(day) + "," + str(year)
+                return time_string
             #if you need different format, feel free to add
         except:
             return "Error: is the DS3231 not connected?"   #exception occurs in any case of error.
