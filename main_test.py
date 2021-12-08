@@ -18,12 +18,10 @@ lcd = I2cLcd(i2c, I2C_ADDR, I2C_NUM_ROWS, I2C_NUM_COLS)
 
 
 #RTC
-rtc_i2c= I2C(0, sda=machine.Pin(0), scl=machine.Pin(1), freq=100000)
-rtc = RTC_DS3231.RTC(rtc_i2c)
+rtc = RTC_DS3231.RTC(i2c)
 
 #Humidity and Temperature
-sensor_i2c = I2C(0, sda=machine.Pin(0), scl=machine.Pin(1))
-sensor = am2320.AM2320(sensor_i2c)
+sensor = am2320.AM2320(i2c)
 
 #if possible attempt to use GPIO 20-22 buttons to configure time rather than set them on the PC first
 #Weekday is start at Saturday with x01
