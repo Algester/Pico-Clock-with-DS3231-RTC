@@ -15,12 +15,7 @@ I2C_NUM_COLS = 16
 
 i2c = I2C(0, sda=machine.Pin(0), scl=machine.Pin(1), freq=400000)
 lcd = I2cLcd(i2c, I2C_ADDR, I2C_NUM_ROWS, I2C_NUM_COLS)
-
-
-#RTC
-rtc = RTC_DS3231.RTC(i2c)
-
-#Humidity and Temperature
+rtc = RTC_DS3231.RTC()
 sensor = am2320.AM2320(i2c)
 
 #if possible attempt to use GPIO 20-22 buttons to configure time rather than set them on the PC first
@@ -30,7 +25,7 @@ sensor = am2320.AM2320(i2c)
 #remove comment to set time. Do this only once otherwise time will be set everytime the code is executed.
 
 pin = machine.Pin(20, machine.Pin.IN)
-temp = sensor.temperatur()
+temp = sensor.temperature()
 humi = sensor.humidity()
 
 while True:
@@ -48,5 +43,3 @@ while True:
         lcd.move_to(1,0)
         lcd.putstr(humi)
         time.sleep_ms(30)
-
-
