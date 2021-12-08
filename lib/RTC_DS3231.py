@@ -53,7 +53,7 @@ class RTC:
                 time_string = str(hour) + ":" + str(minute) + ":" + str(second) + "        " + weekday + " " + str(day) + "." + str(month) + "." + str(year)
                 return time_string
             if mode == 2:
-                time_string = str(hour) + ":" + str(minute) + ":" + str(second) + "        " + weekday + " " + str(month) + "." + str(day) + "," + str(year)
+                time_string = str(hour) + ":" + str(minute) + ":" + str(second) + "        " + weekday + " " + str(month) + "/" + str(day) + "/" + str(year)
                 return time_string
             #if you need different format, feel free to add
         except:
