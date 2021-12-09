@@ -29,6 +29,12 @@ pin = machine.Pin(20, machine.Pin.IN)
 #temp = sensor.temperature()
 #humi = sensor.humidity()
 
+#24 hour-12 hour conversion??
+#display.hour = rtc.hour % 12
+#if display.hour == 0:
+#  display.hour = 12
+#display.pm = rtc.hour >= 12
+
 while True:
     #Display RTC_ReadTime in mode 2 change as needed see lib/RTC_DS3231
     t = rtc.DS3231_ReadTime(2)
