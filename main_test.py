@@ -26,8 +26,8 @@ sensor = am2320.AM2320(i2c)
 
 pin = machine.Pin(20, machine.Pin.IN)
 #temperature and humidity needs to be converted from float to non float value (unknown formula yet)
-#temp = sensor.temperature()
-#humi = sensor.humidity()
+temp = sensor.temperature()
+humi = sensor.humidity()
 
 #24 hour-12 hour conversion??
 #display.hour = rtc.hour % 12
@@ -46,7 +46,7 @@ while True:
         lcd.clear()
         sensor.measure()
         lcd.move_to(0,0)
-        #lcd.putstr(f'sensor.temperature()')
+        lcd.putstr(int(sensor.temperature()))
         lcd.move_to(1,0)
-        #lcd.putstr(f'sensor.humidity()')
+        lcd.putstr(int(sensor.humidity()))
         time.sleep_ms(1000)
