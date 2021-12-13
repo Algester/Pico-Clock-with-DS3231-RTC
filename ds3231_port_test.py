@@ -17,7 +17,7 @@ if uos.uname().machine.split(' ')[0][:4] == 'PYBD':
 # A Pyboard test
 #from pyb import RTC
 #rtc = RTC()
-#       result = YY, MM, DD, hh, mm, ss, wday -1, 0
+#       result = MM, DD, YY, hh, mm, ss, wday -1, 0
 #format is      Year, Month, Date, Hour, Minute, Second, Day
 #rtc.datetime((2018, 1, 1, 1, 12, 0, 0, 0))  # Force incorrect setting
 
