@@ -58,14 +58,16 @@ class DS3231:
         else:
             YY += 1900
         # Time from DS3231 in time.localtime() format (less yday)
-        result = YY, MM, DD, hh, mm, ss, wday -1, 0
+        #result = YY, MM, DD, hh, mm, ss, wday -1, 0
+        result = MM, DD, YY, hh, mm, ss, wday -1, 0
         if set_rtc:
             if rtc is None:
                 # Best we can do is to set local time
                 secs = utime.mktime(result)
                 utime.localtime(secs)
             else:
-                rtc.datetime((YY, MM, DD, wday, hh, mm, ss, 0))
+                #rtc.datetime((YY, MM, DD, wday, hh, mm, ss, 0))
+                rtc.datetime((MM, DD, YY, wday, hh, mm, ss, 0))
         return result
 
     def save_time(self):
