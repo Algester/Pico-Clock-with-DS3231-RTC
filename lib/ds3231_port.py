@@ -11,9 +11,11 @@ DS3231_I2C_ADDR = 104
 
 try:
     rtc = machine.RTC()
-except:
-    print('Warning: machine module does not support the RTC.')
-    rtc = None
+#except:
+    #print('Warning: machine module does not support the RTC.')
+    #rtc = None
+except Exception as e:
+    return "Error: is the DS3231 not connected or some other problem (%s)" % e
 
 def bcd2dec(bcd):
     return (((bcd & 0xf0) >> 4) * 10 + (bcd & 0x0f))
